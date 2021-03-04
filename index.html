@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous"/>
+    <title>Document</title>
+
+    <style>
+        body {
+            width: 99%;
+
+        }
+        .container {
+            display: flex;
+            flex-flow: column nowrap;
+            margin: 10px auto;
+        }
+        .navBar {
+            display: flex;
+            flex-flow: row nowrap;
+            align-items: center;
+            justify-content: flex-end;
+            margin: 40px;
+        }
+        .navBar i {
+            font-size: 20px;
+        }
+        .circle {
+            background-color: rgb(77, 75, 75);
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            padding: 2px;
+            font-size: 14px;
+            font-weight: 600;
+            text-align: center;
+            color: white;
+            position: relative;
+            bottom: 12px;
+            right: 5px;
+        }
+        .card-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 20px auto;
+        }
+        .card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 20px auto;
+        }
+        .card-img {
+            width: 300px;
+            height: 300px;
+        }
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        .btn {
+            padding: 12px 22px;
+            background-color: blue;
+            color: white;
+            text-decoration: none;
+            margin: 20px auto;
+            font-size: 20px;
+            font-weight: 600;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <nav class="navBar">
+            <i class="fas fa-cart-plus"></i>
+            <div class="circle">0</div>
+        </nav>
+
+        <div class="card-container">
+            <div class="card">
+                <div class="card-img">
+                    <img src="./asset/images/dress2.jpg" alt="img">
+                </div>
+                <a href="#" class="btn">Buy Now</a>
+            </div>
+        </div>
+    </div>
+    
+
+    <script type="text/javascript">
+        
+        const buyBtn = document.getElementsByClassName("btn")[0];
+        const num = document.querySelector(".circle");
+        let initialValue = 0;
+
+        buyBtn.addEventListener("click", () => {
+            let value = num.textContent;
+            if((value == 0) || (value <= 4)) {
+                initialValue++;
+                num.textContent = initialValue;
+                console.log(initialValue);
+            }
+            else if(value == 5) {
+                num.textContent = value + '+';
+                initialValue++;
+                console.log(initialValue);
+            }
+            else {
+                initialValue++;
+                console.log(initialValue);
+            }
+        })
+            
+    </script>
+</body>
+</html>
+
+            
+            const num = document.querySelector(".circle");
+            let count = num.textContent;
+        
+                
+                
+                if(num.textContent == count) {
+                    num.textContent = count + 1;
+                    console.log(num.textContent);
+
+                    
+                }
+    
+            count++;
+        });
+        var i = 0;
+            const num = document.getElementsByClassName("circle");
+            num.value = ++i;
+            console.log(i);
+            console.log(num.value);
+
+            /*num.stepUp(1);
+             var count;
+            count = num.textContent;
+            console.log(count);
+            if(count == 0) {
+                count++;
+                num.textContent = this.count;
+                console.log(count);
+                
+                if(count <= 4) {
+                    num.textContent = this.count;
+                    count++;
+                    console.log(count);
+                }
+            } */
+            /* value = isNaN(value) ? 0 : value;
+            value++;
+            console.log(value);
+            num.textContent = value;
+            console.log(value); */
