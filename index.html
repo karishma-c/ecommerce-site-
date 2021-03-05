@@ -10,7 +10,7 @@
     <style>
         body {
             width: 99%;
-
+            background-color: rgb(252, 241, 198);
         }
         .container {
             display: flex;
@@ -23,6 +23,7 @@
             align-items: center;
             justify-content: flex-end;
             margin: 40px;
+            position: relative;
         }
         .navBar i {
             font-size: 20px;
@@ -30,8 +31,8 @@
         .circle {
             background-color: rgb(77, 75, 75);
             border-radius: 50%;
-            width: 18px;
-            height: 18px;
+            width: 17px;
+            height: 17px;
             padding: 2px;
             font-size: 14px;
             font-weight: 600;
@@ -59,10 +60,59 @@
             width: 300px;
             height: 300px;
         }
-        img {
+        img, .product-img {
             width: 100%;
             height: 100%;
             object-fit: contain;
+        }
+        .modal {
+            background-color: rgb(250, 242, 242);
+            width: 400px;
+            box-shadow: 5px 5px 8px solid(0,0,0,0.5);
+            border-radius: 10px;
+            display: block;
+            position: absolute;
+            top: 40px;
+            right: -25px;
+        }
+        .modal-content {
+            display: flex;
+            flex-flow: column nowrap;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+        .product-card {
+            display: flex;
+            flex-flow: row nowrap;
+            justify-content: flex-start;
+            align-items: center;
+        }
+        .product-image {
+            height: 150px;
+            width: 150px;
+            margin: 10px;
+        }
+        .product-details {
+            display: flex;
+            flex-flow: column nowrap;
+            justify-content: center;
+            align-items: flex-start;
+            margin: 10px 15px;
+        }
+        .product-name {
+            font-size: 26px;
+            font-weight: 600;
+            margin: 0 10px 10px;
+        }
+        .product-price {
+            font-size: 22px;
+            font-weight: 500;
+            margin: 0 10px 10px;
+        }
+        .total-price {
+            font-size: 28px;
+            font-weight: 800;
+            margin: 0 10px 10px;
         }
         .btn {
             padding: 12px 22px;
@@ -95,12 +145,20 @@
     
 
     <script type="text/javascript">
-        
+
+        var products = {
+            productimage: "./asset/images/dress2.jpg",
+            productname: "Party Wear Gown - Red",
+            productprice: "800"
+        }
+        const container = document.getElementsByClassName("container")[0];
+        const navBar = document.getElementsByClassName("navBar")[0];
         const buyBtn = document.getElementsByClassName("btn")[0];
         const num = document.querySelector(".circle");
         let initialValue = 0;
 
         buyBtn.addEventListener("click", () => {
+
             let value = num.textContent;
             if((value == 0) || (value <= 4)) {
                 initialValue++;
@@ -116,6 +174,59 @@
                 initialValue++;
                 console.log(initialValue);
             }
+
+            const modal = document.createElement("div");
+            var attributes = ["class", "id"];
+            var values = ["modal", "myModal"];
+            for (var i = 0; i < attributes.length; i++) {
+               modal.setAttribute(attributes[i], values[i])
+            }
+
+            const modalContent = document.createElement("div");
+            modalContent.setAttribute("class", "modal-content");
+
+            const productCard = document.createElement("div");
+            productCard.setAttribute("class", "product-card");
+
+            const productImage = document.createElement("div");
+            productImage.setAttribute("class", "product-image");
+
+            const Image = document.createElement("img");
+            Image.src = `${products.productimage}`;
+            Image.setAttribute("class", "product-img");
+
+            const productDetails = document.createElement("div");
+            productDetails.setAttribute("class", "product-details");
+
+            const productName = document.createElement("h2");
+            productName.setAttribute("class", "product-name");
+            productName.textContent = 'Price : ' + `${products.productname}`;
+            
+            const productPrice = document.createElement("h4");
+            productPrice.setAttribute("class", "product-price");
+            // productPrice.textContent = `${products.productprice} * ${initialValue}`;
+            productPrice.textContent = products.productprice + ' * ' + initialValue;
+
+            let tprice = products.productprice  *  initialValue;
+            console.log(tprice);
+            const totalPrice = document.createElement("h1");
+            totalPrice.setAttribute("class", "total-price");
+            totalPrice.textContent = 'Total Price : ' +  `${tprice}`;
+
+            productCard.appendChild(productImage)
+            productCard.appendChild(productDetails);
+            productImage.appendChild(Image);
+            productDetails.appendChild(productName);
+            productDetails.appendChild(productPrice);
+            productDetails.appendChild(totalPrice);
+            modalContent.appendChild(productCard);
+            modal.appendChild(modalContent);
+            navBar.appendChild(modal);
+    
+            setTimeout(function() { 
+                navBar.removeChild(modal);
+            }, 3000)
+            
         })
             
     </script>
@@ -123,43 +234,4 @@
 </html>
 
             
-            const num = document.querySelector(".circle");
-            let count = num.textContent;
-        
-                
-                
-                if(num.textContent == count) {
-                    num.textContent = count + 1;
-                    console.log(num.textContent);
-
-                    
-                }
-    
-            count++;
-        });
-        var i = 0;
-            const num = document.getElementsByClassName("circle");
-            num.value = ++i;
-            console.log(i);
-            console.log(num.value);
-
-            /*num.stepUp(1);
-             var count;
-            count = num.textContent;
-            console.log(count);
-            if(count == 0) {
-                count++;
-                num.textContent = this.count;
-                console.log(count);
-                
-                if(count <= 4) {
-                    num.textContent = this.count;
-                    count++;
-                    console.log(count);
-                }
-            } */
-            /* value = isNaN(value) ? 0 : value;
-            value++;
-            console.log(value);
-            num.textContent = value;
-            console.log(value); */
+          
