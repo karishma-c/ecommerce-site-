@@ -3,6 +3,7 @@ var products = {
     productname: "Party Wear Gown - Red",
     productprice: "800"
 }
+
 const container = document.getElementsByClassName("container")[0];
 const navBar = document.getElementsByClassName("navBar")[0];
 const buyBtn = document.getElementsByClassName("btn")[0];
@@ -31,7 +32,7 @@ buyBtn.addEventListener("click", () => {
     var attributes = ["class", "id"];
     var values = ["modal", "myModal"];
     for (var i = 0; i < attributes.length; i++) {
-       modal.setAttribute(attributes[i], values[i])
+    modal.setAttribute(attributes[i], values[i])
     }
 
     const modalContent = document.createElement("div");
@@ -65,7 +66,7 @@ buyBtn.addEventListener("click", () => {
     totalPrice.setAttribute("class", "total-price");
     totalPrice.textContent = 'Total Price : ' +  `${tprice}`;
 
-    productCard.appendChild(productImage)
+    productCard.appendChild(productImage);
     productCard.appendChild(productDetails);
     productImage.appendChild(Image);
     productDetails.appendChild(productName);
@@ -77,6 +78,6 @@ buyBtn.addEventListener("click", () => {
 
     setTimeout(function() { 
         navBar.removeChild(modal);
-    }, 3000)
+    }, 3000);
     
-})
+});
