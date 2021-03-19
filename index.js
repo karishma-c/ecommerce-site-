@@ -16,16 +16,22 @@ var products = {
     }
 };
 
+const body = document.getElementsByTagName("body")[0];
 const container = document.getElementsByClassName("container")[0];
 const modalContent = document.getElementsByClassName("modal")[0];
 const navBar = document.getElementsByClassName("navBar")[0];
 const num = document.querySelector(".circle");
-const clickBtn = document.querySelectorAll(".btn");
+const addToCartBtn = document.querySelectorAll(".add-to-cart-btn");
+const cart = document.getElementById("cart");
+
 let initialValue = 0;
 let productList = [];
 
-clickBtn.forEach(buyBtn => {
+addToCartBtn.forEach(buyBtn => {
     buyBtn.addEventListener('click', (e) => {
+        buyBtn.innerHTML = "Go to Cart";
+        buyBtn.removeAttribute("class", "add-to-cart-btn")
+        buyBtn.setAttribute("id", "go-to-cart");
         let productType = e.path[1].getAttribute("data-itemType");
         let selectedProduct = products[productType];
         let value = num.textContent;
@@ -33,88 +39,102 @@ clickBtn.forEach(buyBtn => {
             initialValue++;
             num.textContent = initialValue;
             console.log(initialValue);
-            showModal(selectedProduct);
+            let productName = selectedProduct.productname  +  '\t is added to the cart';
+            showPopup(productName);
         }
         else if(value == 5) {
             num.textContent = value + '+';
             initialValue++;
             console.log(initialValue);
-            showModal(selectedProduct);
+            let productName = selectedProduct.productname  +  '\t is added to the cart';
+            showPopup(productName);
         }
         else {
             initialValue++;
             console.log(initialValue);
-            showModal(selectedProduct);
+            let productName = selectedProduct.productname  +  '\t is added to the cart';
+            showPopup(productName);
         } 
+        productList.push(selectedProduct);
     });  
 });
 
-function showModal(selectedProduct){
-
-    let modal = `<div class="modal" id="myModal>
-    <div class="modal-content>
-    <div class="product-card">
-        <div class="product-image">
-            <img src="${selectedProduct.productimage}" alt="img">
-        </div>
-        <div class="product-details">
-            <h2 class="product-name">${selectedProduct.productname}</h2>
-            <h4 class="product-price"> ${selectedProduct.productprice}  * ${initialValue}</h4>
-            <h1 class="total-price">Total Price : ${selectedProduct.productprice  * initialValue}</h1>
-        </div>
-    </div>
-    </div>
-    </div>`;  
-    console.log(typeof modal);   
-    navBar.insertAdjacentHTML( 'beforeend', modal );  
-    hideModal(3000);
-    productList.push(selectedProduct);
-    console.log(productList);
-} 
-
 cart.addEventListener("click", () => {
-    showCartItems(productList);
+    if(productList.length == 0) {
+        let empty = 'Sorry! Your cart is empty';
+        showPopup(empty);
+    }
+    else if(productList.length >= 1) {
+        showCartItems(productList);
+    }
 })
 
 function showCartItems(productList) {
-    let modal = `<div class="modal" id="myModal">
-        <div class="modal-content">
-        <span class="close">&times;</span>
-        
-        </div>
-        </div>`; 
+    let modal = `<div class="modal modal-close" id="myModal">
+    <div class="modal-content">
+    <span class="close">&times;</span>
+    
+    </div>
+    </div>`; 
     navBar.insertAdjacentHTML( 'beforeend', modal );
-    let spanBtn = document.querySelector(".close");
-    console.log(spanBtn);
-    spanBtn.addEventListener('click', () => {
-        hideModal(0);
-    })
+    let myModal = document.querySelector(".modal");
+    closeBtn(myModal,2000);
+    
     productList.forEach(element => {
-
-        let newItem = `<div class="product-image">
+        let newItem = `<div class="cart-product-card">
+        <div class="product-image">
             <img src="${element.productimage}" alt="img">
         </div>
         <div class="product-details">
-            <h2 class="product-name">${element.productname}</h2>
-            <h4 class="product-price"> ${element.productprice}  * ${initialValue}</h4>
-            <h1 class="total-price">Total Price : ${element.productprice  * initialValue}</h1>
-        </div>`
+           <h2 class="product-name">${element.productname}</h2>
+            <div class="stepper">
+                <button type="button" id="increment"> - </button>
+                <input type="number" id="input" required min="0" max="5" value="1">
+                <button type="button" id="decrement"> + </button>
+            </div>    
+           <h4 class="product-price"> ${element.productprice}  * ${initialValue}</h4>
+           <h1 class="total-price">Total Price : ${element.productprice  * initialValue}</h1>
+        </div>
+        </div>`;
+
         let modal = document.getElementById("myModal");
         modal.insertAdjacentHTML('beforeend', newItem);
         console.log(element);
-       
-    })
-    
+    })   
+    /* let input = document.getElementById("input");
+    var increaseCount = document.getElementById("increment")[0];
+    let increment = increaseCount.innerText;
+    var decreaseCount = document.getElementById("decrement")[0];
+    let decrement = decreaseCount.innerText;
+    let inputValue = input.value; 
+    increment.addEventListener("click", () => {
+        inputValue++;
+    }) 
+    decrement.addEventListener("click", () => {
+        inputValue--;
+    }) */
 }
 
+function showPopup(popupText) {
+    let text = popupText;
+    let message = `<div class="message-container">
+    <h4 class="alert-message">${text}</h4>
+    </div>`;
+    body.insertAdjacentHTML('beforeend', message);
+    let popupMsg = document.querySelector(".message-container");
+    hidePopup(popupMsg, 2000);
+}
 
+function closeBtn(closeElement) {
+    let spanBtn = document.querySelector(".close");
+    spanBtn.addEventListener('click', () => {
+        hidePopup(closeElement,0);
+    })
+}
 
-function hideModal(time){
-
-    let modal = document.querySelector('.modal');
+function hidePopup(element, time){
     setTimeout(() => {
-    navBar.removeChild(modal);
+        element.remove();
     }, time);
-     
 }
 

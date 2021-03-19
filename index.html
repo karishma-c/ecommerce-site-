@@ -73,26 +73,46 @@
             object-fit: contain;
         }
         .modal {
-            background-color: rgb(250, 242, 242);
-            width: 400px;
-            box-shadow: 5px 5px 8px solid(0,0,0,0.5);
-            border-radius: 10px;
-            display: block;
-            position: absolute;
-            top: 40px;
-            right: -25px;
+            position: fixed; 
+            z-index: 1; 
+            left: 0;
+            top: 0;
+            width: 100%; 
+            height: 100%; 
+            overflow: auto; 
+            background-color: rgb(0,0,0); 
+            background-color: rgba(172, 154, 154, 0.4); 
         }
         .modal-content {
+            margin: 15% auto; 
+            padding: 20px;
             display: flex;
             flex-flow: column nowrap;
-            justify-content: space-between;
-            align-items: flex-start;
+            align-items: center;
+            justify-content: center;
         }
-        .product-card {
+        .product-card, .cart-product-card {
+            width: 50%;
             display: flex;
             flex-flow: row nowrap;
             justify-content: flex-start;
             align-items: center;
+            background-color: white;
+        }    
+        .product-card {
+            position: relative;
+            top: 150px;
+            left: 350px;
+        }
+        .cart-product-card {
+            position: relative;
+            top: -300px;
+            left: 350px;
+        }
+        .modal-close .close {
+            position: relative;
+            top: -150px;
+            left: 380px;
         }
         .product-image {
             height: 150px;
@@ -121,30 +141,53 @@
             font-weight: 800;
             margin: 0 10px 10px;
         }
-        .btn {
+        .add-to-cart-btn, #go-to-cart {
             padding: 12px 22px;
             background-color: blue;
             color: white;
-            text-decoration: none;
             margin: 20px auto;
             font-size: 20px;
             font-weight: 600;
             border-radius: 10px;
+            border: none;
+        }
+        #go-to-cart {
+            background-color: rgb(252, 150, 66);
+            border: none;
         }
         .close {
             color: var(--header-color);
             font-size: 28px;
             font-weight: bold;
             position: relative;
-            top: 10px;
-            left: 360px;
+            top: 100px;
+            left: 980px;
         }
-  
         .close:hover,
         .close:focus {
             color: black;
             text-decoration: none;
             cursor: pointer;
+        }
+        .message-container {
+            margin: 20px auto;
+            background-color: rgb(128, 122, 122);
+            width: 50%;
+            padding: 0;
+        }
+        .alert-message {
+            font-size: 22px;
+            font-weight: 800;
+            text-align: center;
+            color:white;
+            padding: 10px;
+            margin: 0 auto;
+        }
+        .message-container .close {
+            position: relative;
+            top: 40px;
+            left: 350px;
+            color: white;
         }
     </style>
 </head>
@@ -155,8 +198,6 @@
                 <i class="fas fa-cart-plus"></i>
                 <div class="circle">0</div>
             </div>
-            
-            
         </nav>
 
         <div class="card-container">
@@ -168,8 +209,9 @@
                     <h2 class="product-name">Party Wear Gown - Red</h2>
                     <h4 class="product-price">Rs. 800</h4>
                 </div>
-                <button class="btn">Buy Now</button>
+                <button class="add-to-cart-btn">Add to Cart</button>
             </div>
+
             <div class="card" data-itemType="choli">
                 <div class="card-img">
                     <img src="./asset/images/dress2.jpg" alt="img">
@@ -178,8 +220,9 @@
                     <h2 class="product-name">Lehenga choli - Pink</h2>
                     <h4 class="product-price">Rs. 1200</h4>
                 </div>
-                <button class="btn">Buy Now</button>
+                <button class="add-to-cart-btn">Add to Cart</button>
             </div>
+
             <div class="card" data-itemType="saree">
                 <div class="card-img">
                     <img src="./asset/images/dress3.jpg" alt="img">
@@ -188,12 +231,13 @@
                     <h2 class="product-name">Netted Saree - Grey</h2>
                     <h4 class="product-price">Rs. 1000</h4>
                 </div>
-                <button class="btn">Buy Now</button>
+                <button class="add-to-cart-btn">Add to Cart</button>
             </div>
         </div>
     </div>
     
     <script src="./index.js"></script>
+    <script src="./fakeindex.js"></script>
 
 </body>
 </html>
