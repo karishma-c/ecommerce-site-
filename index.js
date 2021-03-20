@@ -87,32 +87,41 @@ function showCartItems(productList) {
         </div>
         <div class="product-details">
            <h2 class="product-name">${element.productname}</h2>
-            <div class="stepper">
-                <button type="button" id="increment"> - </button>
-                <input type="number" id="input" required min="0" max="5" value="1">
-                <button type="button" id="decrement"> + </button>
-            </div>    
-           <h4 class="product-price"> ${element.productprice}  * ${initialValue}</h4>
-           <h1 class="total-price">Total Price : ${element.productprice  * initialValue}</h1>
+            
+           <h4 class="product-price">${element.productprice}  * ${initialValue}</h4>
+           <h1 class="total-price">Total Price: ${element.productprice  * initialValue}</h1>
+           <div class="remove">
+            <i class="fas fa-trash-alt remove-button">Remove</i>
+           </div> 
         </div>
         </div>`;
 
         let modal = document.getElementById("myModal");
         modal.insertAdjacentHTML('beforeend', newItem);
         console.log(element);
-    })   
+        
+        let removeBtn = document.getElementsByClassName("remove-button")[0];
+        removeBtn.addEventListener("click", (e) => {
+            productList.remove(e);
+        })
+    })
+    
     /* let input = document.getElementById("input");
     var increaseCount = document.getElementById("increment")[0];
-    let increment = increaseCount.innerText;
+    let increment = increaseCount;
     var decreaseCount = document.getElementById("decrement")[0];
-    let decrement = decreaseCount.innerText;
-    let inputValue = input.value; 
+    let decrement = decreaseCount;
+    let inputValue = input.getAttribute("value") 
+    input.setAttribute("value", "inputValue")
+    console.log(inputValue);
     increment.addEventListener("click", () => {
-        inputValue++;
+        inputValue = inputValue + 1;
+        console.log(inputValue);
     }) 
     decrement.addEventListener("click", () => {
-        inputValue--;
-    }) */
+        inputValue = inputValue - 1;
+        console.log(inputValue);
+    })    */
 }
 
 function showPopup(popupText) {
