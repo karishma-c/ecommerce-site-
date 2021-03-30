@@ -42,6 +42,34 @@
             bottom: 38px;
             left: 15px;
         }
+        .sidebar {
+            height: 100%;
+            width: 0;
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            right: 0;
+            background-color: rgb(250, 246, 223);
+            overflow-x: hidden;
+            transition: 0.5s all ease-in;
+            padding-top: 60px;
+        }
+        .sidebar-content {
+            transition: 0.3s;
+            padding: 10px;
+            display: flex;
+            flex-flow: column nowrap;
+            align-items: center;
+            justify-content: center;
+        }
+        .sidebar .close {
+            position: relative;
+            color: rgb(68, 66, 66);
+            font-size: 28px;
+            font-weight: bold;
+            top: -40px;
+            left: 150px;
+        }
         .card-container {
             display: flex;
             flex-direction: row;
@@ -72,7 +100,7 @@
             height: 100%;
             object-fit: contain;
         }
-        .modal {
+        .confirmation-modal {
             position: fixed; 
             z-index: 1; 
             left: 0;
@@ -83,7 +111,12 @@
             background-color: rgb(0,0,0); 
             background-color: rgba(172, 154, 154, 0.4); 
         }
-        .modal-content {
+        .confirmation-modal .modal-content {
+            background-color: white;
+            width: 30%;
+            border-radius: 10px;
+        }
+        .confirmation-modal .modal-content {
             margin: 15% auto; 
             padding: 20px;
             display: flex;
@@ -91,29 +124,37 @@
             align-items: center;
             justify-content: center;
         }
-        .product-card, .cart-product-card {
-            width: 50%;
+        .confirmation-modal .close {
+            color: rgb(68, 66, 66);
+            font-size: 28px;
+            font-weight: bold;
+            position: relative;
+            top: -8px;
+            left: 160px;
+        }
+        .button-container {
+            display: flex;
+            flex-flow: row nowrap;
+            justify-content: center;
+            align-items: center;
+        }
+        .cancel {
+            padding: 12px 22px;
+            background-color: white;
+            color: black;
+            margin: 20px 10px;
+            font-size: 20px;
+            font-weight: 600;
+            border-radius: 10px;
+            border: 1px solid black;
+        }
+        .product-card {
+            width: 100%;
             display: flex;
             flex-flow: row nowrap;
             justify-content: flex-start;
             align-items: center;
-            background-color: white;
         }    
-        .product-card {
-            position: relative;
-            top: 150px;
-            left: 350px;
-        }
-        .cart-product-card {
-            position: relative;
-            top: -300px;
-            left: 350px;
-        }
-        .modal-close .close {
-            position: relative;
-            top: -150px;
-            left: 380px;
-        }
         .product-image {
             height: 150px;
             width: 150px;
@@ -127,21 +168,21 @@
             margin: 10px 15px;
         }
         .product-name {
-            font-size: 24px;
+            font-size: 22px;
             font-weight: 600;
             margin: 0 10px 10px;
         }
         .product-price {
-            font-size: 22px;
+            font-size: 20px;
             font-weight: 500;
             margin: 0 10px 10px;
         }
         .total-price {
-            font-size: 26px;
+            font-size: 24px;
             font-weight: 800;
             margin: 0 10px 10px;
         }
-        .add-to-cart-btn, #go-to-cart {
+        .add-to-cart-btn, #go-to-cart, .remove {
             padding: 12px 22px;
             background-color: blue;
             color: white;
@@ -154,14 +195,6 @@
         #go-to-cart {
             background-color: rgb(252, 150, 66);
             border: none;
-        }
-        .close {
-            color: var(--header-color);
-            font-size: 28px;
-            font-weight: bold;
-            position: relative;
-            top: 100px;
-            left: 980px;
         }
         .close:hover,
         .close:focus {
@@ -183,13 +216,16 @@
             padding: 10px;
             margin: 0 auto;
         }
-        .message-container .close {
-            position: relative;
-            top: 40px;
-            left: 350px;
-            color: white;
+        .remove-button {
+            padding: 10px;
+            margin: 5px 0 0 -5px;
+            font-size: 20px;
         }
-        .remove:hover {
+        .remove-button i {
+            font-size: 18px;
+            padding: 0 10px;
+        }
+        .remove-button:hover {
             color: red;
         }
     </style>

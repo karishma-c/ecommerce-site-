@@ -70,58 +70,76 @@ cart.addEventListener("click", () => {
 })
 
 function showCartItems(productList) {
-    let modal = `<div class="modal modal-close" id="myModal">
-    <div class="modal-content">
+    let modal = `<div class="sidebar" id="mySidebar">
+    <div class="sidebar-content">
     <span class="close">&times;</span>
     
     </div>
     </div>`; 
     navBar.insertAdjacentHTML( 'beforeend', modal );
-    let myModal = document.querySelector(".modal");
-    closeBtn(myModal,2000);
+    let sideBar = document.querySelector(".sidebar");
+    sideBar.style.width = "400px";
+    closeBtn(sideBar,2000);
     
     productList.forEach(element => {
-        let newItem = `<div class="cart-product-card">
+        let newItem = `<div class="product-card">
         <div class="product-image">
             <img src="${element.productimage}" alt="img">
         </div>
         <div class="product-details">
-           <h2 class="product-name">${element.productname}</h2>
+           <h3 class="product-name">${element.productname}</h2>
             
            <h4 class="product-price">${element.productprice}  * ${initialValue}</h4>
-           <h1 class="total-price">Total Price: ${element.productprice  * initialValue}</h1>
-           <div class="remove">
-            <i class="fas fa-trash-alt remove-button">Remove</i>
-           </div> 
+           <h3 class="total-price">Total Price: ${element.productprice  * initialValue}</h1>
+           <h5 class="remove-button"><i class="fas fa-trash-alt"></i>Remove</h5>
         </div>
         </div>`;
 
-        let modal = document.getElementById("myModal");
-        modal.insertAdjacentHTML('beforeend', newItem);
+        let sideNav = document.getElementById("mySidebar");
+        sideNav.insertAdjacentHTML('beforeend', newItem);
         console.log(element);
-        
-        let removeBtn = document.getElementsByClassName("remove-button")[0];
-        removeBtn.addEventListener("click", (e) => {
-            productList.remove(e);
-        })
     })
     
-    /* let input = document.getElementById("input");
-    var increaseCount = document.getElementById("increment")[0];
-    let increment = increaseCount;
-    var decreaseCount = document.getElementById("decrement")[0];
-    let decrement = decreaseCount;
-    let inputValue = input.getAttribute("value") 
-    input.setAttribute("value", "inputValue")
-    console.log(inputValue);
-    increment.addEventListener("click", () => {
-        inputValue = inputValue + 1;
-        console.log(inputValue);
-    }) 
-    decrement.addEventListener("click", () => {
-        inputValue = inputValue - 1;
-        console.log(inputValue);
-    })    */
+    let remove = document.querySelectorAll(".remove-button");
+    remove.forEach(removeBtn => {
+        removeBtn.addEventListener("click", (event) => {
+            var removedItem = event.currentTarget.parentNode.parentNode;
+            showModal(removedItem);
+        })
+    })
+}
+
+function showModal(removedItem) {
+    let confirmation = `<div class="confirmation-modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h3 class="confirmation">Do you want to remove this item?</h3>
+        <div class="button-container">
+            <button class="remove">Remove</button>
+            <button class="cancel">Cancel</button>
+        </div>
+    </div>
+    </div>`;
+    body.insertAdjacentHTML("beforeend", confirmation);
+    let sideNav = document.getElementById("mySidebar");
+    let confirm = document.querySelectorAll(".confirmation-modal");
+    let remove = document.querySelectorAll(".remove");
+    let cancel = document.querySelectorAll(".cancel");
+    closeBtn(confirm, 0);
+
+    remove.forEach(removeItem => {
+        removeItem.addEventListener("click", () => {
+            console.log("clicked");
+            hidePopup(removedItem,0);
+            
+        })
+        closeBtn(confirm,0);
+    })
+    cancel.forEach(cancelItem => {
+        cancelItem.addEventListener("click", () => {
+            closeBtn(confirm,0);
+        })
+    })
 }
 
 function showPopup(popupText) {
